@@ -21,7 +21,9 @@ create table book
     author varchar(64),
     refer  varchar(16),
     count  int,
-    status int
+    status int,
+    hot    int,
+    intro  varchar(1024)
 ) ENGINE = InnoDB;
 
 create table hold
