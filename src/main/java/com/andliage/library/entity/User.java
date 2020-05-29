@@ -6,6 +6,9 @@
 package com.andliage.library.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class User {
     private int id;
@@ -13,6 +16,7 @@ public class User {
     private String password;
     private Integer maxHold;
     private Timestamp createTime;
+    private Set<Book> holdBooks = new HashSet<>();
 
     public int getId() {
         return id;
@@ -54,6 +58,14 @@ public class User {
         this.createTime = createTime;
     }
 
+    public Set<Book> getHoldBooks() {
+        return holdBooks;
+    }
+
+    public void setHoldBooks(Set<Book> holdBooks) {
+        this.holdBooks = holdBooks;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,10 +74,10 @@ public class User {
         User user = (User) o;
 
         if (id != user.id) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (maxHold != null ? !maxHold.equals(user.maxHold) : user.maxHold != null) return false;
-        return createTime != null ? createTime.equals(user.createTime) : user.createTime == null;
+        if (!Objects.equals(username, user.username)) return false;
+        if (!Objects.equals(password, user.password)) return false;
+        if (!Objects.equals(maxHold, user.maxHold)) return false;
+        return Objects.equals(createTime, user.createTime);
     }
 
     @Override

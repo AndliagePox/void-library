@@ -16,13 +16,13 @@ import java.util.List;
 public class AccountDAO extends BaseDAO {
     public User findUserByName(String username) {
         String hql = "from User u where u.username = ?";
-        List<User> list = template.find(hql, username);
+        List<User> list = (List<User>) template.find(hql, username);
         return list.isEmpty() ? null : list.get(0);
     }
 
     public Admin findAdminByName(String username) {
         String hql = "from Admin a where a.username = ?";
-        List<Admin> list = template.find(hql, username);
+        List<Admin> list = (List<Admin>) template.find(hql, username);
         return list.isEmpty() ? null : list.get(0);
     }
 

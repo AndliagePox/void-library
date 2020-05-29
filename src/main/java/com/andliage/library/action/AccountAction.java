@@ -32,8 +32,10 @@ public class AccountAction extends ActionSupport {
         jsonMap = service.login(username, password);
         if ((int) jsonMap.get("code") == 1) {
             if ("admin".equals(jsonMap.get("type"))) {
+                context.getSession().remove("curUser");
                 context.getSession().put("curAdmin", username);
             } else {
+                context.getSession().remove("curAdmin");
                 context.getSession().put("curUser", username);
             }
         }

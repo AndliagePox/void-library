@@ -26,9 +26,19 @@ public class BookAction extends ActionSupport {
 
     public String list() {
         HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
-        jsonMap = service.list(
-                1, 1, 1, ""
-        );
+        int page = Integer.parseInt(request.getParameter("page"));
+        int sortType = Integer.parseInt(request.getParameter("sortType"));
+        int listType = Integer.parseInt(request.getParameter("listType"));
+        String searchText = request.getParameter("search");
+
+        if (context.getSession().get("curUser") != null) {
+            String username = (String) context.getSession().get("curUser");
+            jsonMap = service.listForUser(page, sortType, listType, searchText, username);
+        } else if (context.getSession().get("curAdmin") != null) {
+            jsonMap = service.listForAdmin();
+        } else {
+            jsonMap = service.listForAnonymous(page, sortType, searchText);
+        }
         return SUCCESS;
     }
 

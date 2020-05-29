@@ -6,17 +6,20 @@
 package com.andliage.library.entity;
 
 import java.sql.Timestamp;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Book {
     private int id;
     private String name;
     private String author;
     private String refer;
+    private String intro;
     private Integer count;
     private Integer status;
     private Integer hot;
     private Timestamp createTime;
+    private Set<User> holdUsers = new HashSet<>();
 
     public int getId() {
         return id;
@@ -50,6 +53,14 @@ public class Book {
         this.refer = refer;
     }
 
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
     public Integer getCount() {
         return count;
     }
@@ -80,6 +91,25 @@ public class Book {
 
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public Set<User> getHoldUsers() {
+        return holdUsers;
+    }
+
+    public void setHoldUsers(Set<User> holdUsers) {
+        this.holdUsers = holdUsers;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("name", name);
+        map.put("author", author);
+        map.put("intro", intro);
+        map.put("hot", hot);
+        map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(createTime));
+        return map;
     }
 
     @Override

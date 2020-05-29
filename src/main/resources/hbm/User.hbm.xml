@@ -20,5 +20,9 @@
         <property name="createTime">
             <column name="create_time" sql-type="datetime" not-null="true"/>
         </property>
+        <set name="holdBooks" table="hold" lazy="false">
+            <key column="user"/>
+            <many-to-many class="com.andliage.library.entity.Book" column="book"/>
+        </set>
     </class>
 </hibernate-mapping>
