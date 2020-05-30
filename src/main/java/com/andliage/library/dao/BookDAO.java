@@ -17,6 +17,12 @@ import java.util.List;
 @Repository
 @SuppressWarnings("unchecked")
 public class BookDAO extends BaseDAO {
+    public Book findBookById(int id) {
+        String hql = "from Book b where b.id = ?";
+        List<Book> list = (List<Book>) template.find(hql, id);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
     public List<Book> findBooksForAnonymous(int page, int sortType, String searchText) {
         if (searchText == null) searchText = "";
         Session session = template.getSessionFactory().openSession();
@@ -86,7 +92,7 @@ public class BookDAO extends BaseDAO {
         return list;
     }
 
-    public Long getBookCountForUser(
+    public long getBookCountForUser(
             int listType,
             String searchText,
             User user

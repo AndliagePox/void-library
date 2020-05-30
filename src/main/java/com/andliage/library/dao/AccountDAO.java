@@ -26,7 +26,7 @@ public class AccountDAO extends BaseDAO {
         return list.isEmpty() ? null : list.get(0);
     }
 
-    public void saveNewUser(User user) {
+    public void saveUser(User user) {
         template.save(user);
         template.flush();
     }

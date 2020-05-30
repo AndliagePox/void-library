@@ -7,7 +7,33 @@
 <struts>
     <constant name="struts.objectFactory" value="spring"/>
 
-    <package name="accountApi" namespace="/api/account" extends="json-default">
+    <package name="base" extends="json-default">
+        <interceptors>
+            <interceptor name="userLogin" class="com.andliage.library.interceptor.UserLoginInterceptor"/>
+
+            <interceptor-stack name="userLoginStack">
+                <interceptor-ref name="userLogin"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <global-results>
+            <result name="userNotLogin" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </global-results>
+    </package>
+
+    <package name="index" namespace="/" extends="base">
+        <default-action-ref name="index"/>
+        <action name="index" class="com.opensymphony.xwork2.ActionSupport">
+            <result name="success">
+                /WEB-INF/index.html
+            </result>
+        </action>
+    </package>
+
+    <package name="accountApi" namespace="/api/account" extends="base">
         <action name="login" class="accountAction" method="login">
             <result name="success" type="json">
                 <param name="root">jsonMap</param>
@@ -27,7 +53,7 @@
         </action>
     </package>
 
-    <package name="userApi" namespace="/api/user" extends="json-default">
+    <package name="userApi" namespace="/api/user" extends="base">
         <action name="cur" class="userAction" method="cur">
             <result name="success" type="json">
                 <param name="root">jsonMap</param>
@@ -35,19 +61,26 @@
         </action>
     </package>
 
-    <package name="bookApi" namespace="/api/book" extends="json-default">
+    <package name="bookApi" namespace="/api/book" extends="base">
         <action name="list" class="bookAction" method="list">
             <result name="success" type="json">
                 <param name="root">jsonMap</param>
             </result>
         </action>
-    </package>
 
-    <package name="index" namespace="/" extends="struts-default">
-        <default-action-ref name="index"/>
-        <action name="index" class="com.opensymphony.xwork2.ActionSupport">
-            <result name="success">
-                /WEB-INF/index.html
+        <action name="borrow" class="bookAction" method="borrowBook">
+            <interceptor-ref name="userLogin"/>
+
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
+        <action name="return" class="bookAction" method="returnBook">
+            <interceptor-ref name="userLogin"/>
+
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
             </result>
         </action>
     </package>

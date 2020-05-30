@@ -42,6 +42,24 @@ public class BookAction extends ActionSupport {
         return SUCCESS;
     }
 
+    public String borrowBook() {
+        HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
+        String username = (String) context.getSession().get("curUser");
+        int bookId = Integer.parseInt(request.getParameter("bid"));
+
+        jsonMap = service.borrowBook(username, bookId);
+        return SUCCESS;
+    }
+
+    public String returnBook() {
+        HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
+        String username = (String) context.getSession().get("curUser");
+        int bookId = Integer.parseInt(request.getParameter("bid"));
+
+        jsonMap = service.returnBook(username, bookId);
+        return SUCCESS;
+    }
+
     @Autowired
     public void setService(BookService service) {
         this.service = service;

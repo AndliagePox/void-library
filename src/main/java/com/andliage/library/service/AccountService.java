@@ -18,6 +18,9 @@ import java.util.Map;
 
 @Service
 public class AccountService {
+    /**
+     * 新用户可借阅图书数量
+     */
     public static final int NEW_USER_MAX_HOLD = 2;
 
     private AccountDAO dao;
@@ -63,7 +66,7 @@ public class AccountService {
             user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
             user.setMaxHold(NEW_USER_MAX_HOLD);
             user.setCreateTime(new Timestamp(System.currentTimeMillis()));
-            dao.saveNewUser(user);
+            dao.saveUser(user);
             res.put("code", 1);
             res.put("msg", "ok");
         }
