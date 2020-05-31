@@ -14,10 +14,10 @@
         <property name="time">
             <column name="time" sql-type="datetime" not-null="true"/>
         </property>
-        <many-to-one name="user" class="com.andliage.library.entity.User">
+        <many-to-one name="user" class="com.andliage.library.entity.User" lazy="false">
             <column name="user" not-null="true"/>
         </many-to-one>
-        <many-to-one name="book" class="com.andliage.library.entity.Book">
+        <many-to-one name="book" class="com.andliage.library.entity.Book" lazy="false">
             <column name="book" not-null="true"/>
         </many-to-one>
     </class>

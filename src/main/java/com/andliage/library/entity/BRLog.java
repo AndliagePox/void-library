@@ -6,6 +6,7 @@
 package com.andliage.library.entity;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class BRLog {
     private int id;
@@ -54,6 +55,10 @@ public class BRLog {
         this.book = book;
     }
 
+    public String typeString() {
+        return type == 1 ? "借阅" : "归还";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,8 +67,8 @@ public class BRLog {
         BRLog brLog = (BRLog) o;
 
         if (id != brLog.id) return false;
-        if (type != null ? !type.equals(brLog.type) : brLog.type != null) return false;
-        return time != null ? time.equals(brLog.time) : brLog.time == null;
+        if (!Objects.equals(type, brLog.type)) return false;
+        return Objects.equals(time, brLog.time);
     }
 
     @Override
