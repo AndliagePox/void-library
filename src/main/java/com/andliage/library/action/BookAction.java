@@ -35,7 +35,7 @@ public class BookAction extends ActionSupport {
             String username = (String) context.getSession().get("curUser");
             jsonMap = service.listForUser(page, sortType, listType, searchText, username);
         } else if (context.getSession().get("curAdmin") != null) {
-            jsonMap = service.listForAdmin();
+            jsonMap = service.listForAdmin(page, searchText);
         } else {
             jsonMap = service.listForAnonymous(page, sortType, searchText);
         }

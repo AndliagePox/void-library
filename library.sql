@@ -19,11 +19,9 @@ create table book
     id     int AUTO_INCREMENT primary key,
     name   varchar(128),
     author varchar(64),
-    refer  varchar(16),
+    intro  varchar(1024),
     count  int,
-    status int,
-    hot    int,
-    intro  varchar(1024)
+    hot    int
 ) ENGINE = InnoDB;
 
 create table hold

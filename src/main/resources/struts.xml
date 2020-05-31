@@ -10,15 +10,21 @@
     <package name="base" extends="json-default">
         <interceptors>
             <interceptor name="userLogin" class="com.andliage.library.interceptor.UserLoginInterceptor"/>
+            <interceptor name="adminLogin" class="com.andliage.library.interceptor.AdminLoginInterceptor"/>
 
             <interceptor-stack name="userLoginStack">
                 <interceptor-ref name="userLogin"/>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
+
+            <interceptor-stack name="adminLoginStack">
+                <interceptor-ref name="adminLogin"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
         </interceptors>
 
         <global-results>
-            <result name="userNotLogin" type="json">
+            <result name="notLogin" type="json">
                 <param name="root">jsonMap</param>
             </result>
         </global-results>
@@ -59,6 +65,22 @@
                 <param name="root">jsonMap</param>
             </result>
         </action>
+
+        <action name="list" class="userAction" method="list">
+            <interceptor-ref name="adminLoginStack"/>
+
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+    </package>
+
+    <package name="adminApi" namespace="/api/admin" extends="base">
+        <action name="cur" class="adminAction" method="cur">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
     </package>
 
     <package name="bookApi" namespace="/api/book" extends="base">
@@ -77,7 +99,7 @@
         </action>
 
         <action name="return" class="bookAction" method="returnBook">
-            <interceptor-ref name="userLogin"/>
+            <interceptor-ref name="userLoginStack"/>
 
             <result name="success" type="json">
                 <param name="root">jsonMap</param>

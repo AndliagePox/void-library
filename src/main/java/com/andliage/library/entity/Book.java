@@ -13,10 +13,8 @@ public class Book {
     private int id;
     private String name;
     private String author;
-    private String refer;
     private String intro;
     private Integer count;
-    private Integer status;
     private Integer hot;
     private Timestamp createTime;
     private Set<User> holdUsers = new HashSet<>();
@@ -45,14 +43,6 @@ public class Book {
         this.author = author;
     }
 
-    public String getRefer() {
-        return refer;
-    }
-
-    public void setRefer(String refer) {
-        this.refer = refer;
-    }
-
     public String getIntro() {
         return intro;
     }
@@ -67,14 +57,6 @@ public class Book {
 
     public void setCount(Integer count) {
         this.count = count;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Integer getHot() {
@@ -122,9 +104,7 @@ public class Book {
         if (id != book.id) return false;
         if (!Objects.equals(name, book.name)) return false;
         if (!Objects.equals(author, book.author)) return false;
-        if (!Objects.equals(refer, book.refer)) return false;
-        if (!Objects.equals(count, book.count)) return false;
-        return Objects.equals(status, book.status);
+        return Objects.equals(count, book.count);
     }
 
     @Override
@@ -132,9 +112,7 @@ public class Book {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + (refer != null ? refer.hashCode() : 0);
         result = 31 * result + (count != null ? count.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 }

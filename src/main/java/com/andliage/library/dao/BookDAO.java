@@ -115,4 +115,24 @@ public class BookDAO extends BaseDAO {
         session.close();
         return count;
     }
+
+    public List<Book> findBooksForAdmin(int page, String searchText) {
+        if (searchText == null) searchText = "";
+        Session session = template.getSessionFactory().openSession();
+        String hql = "from Book b " +
+                "where b.name like :search " +
+                "or b.author like :search " +
+                "or b.intro like :search ";
+        Query query = session.createQuery(hql);
+        query.setString("search", "%" + searchText + "%");
+        query.setFirstResult((page - 1) * BookService.COUNT_PER_PAGE_ADMIN);
+        query.setMaxResults(BookService.COUNT_PER_PAGE_ADMIN);
+        List<Book> list = query.list();
+        session.close();
+        return list;
+    }
+
+    public long getBookCountForAdmin(String searchText) {
+        return getBookCountForAnonymous(searchText);
+    }
 }

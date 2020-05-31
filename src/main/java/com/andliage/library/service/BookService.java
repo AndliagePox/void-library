@@ -30,6 +30,11 @@ public class BookService {
     public static final int COUNT_PER_PAGE_USER = 6;
 
     /**
+     * 管理员每页书目容量
+     */
+    public static final int COUNT_PER_PAGE_ADMIN = 10;
+
+    /**
      * 操作状态码
      */
     public static final int OPTION_BORROW   = 1; // 借阅
@@ -78,13 +83,25 @@ public class BookService {
             bookMaps.add(map);
         }
 
-        res.put("pages", Math.ceil((double) count / COUNT_PER_PAGE_USER));
+        res.put("pages", (int) Math.ceil((double) count / COUNT_PER_PAGE_USER));
         res.put("books", bookMaps);
         return res;
     }
 
-    public Map<String, Object> listForAdmin() {
-        return null;
+    public Map<String, Object> listForAdmin(int page, String searchText) {
+        Map<String, Object> res = new HashMap<>();
+        long count = bookDAO.getBookCountForAdmin(searchText);
+        List<Book> list = bookDAO.findBooksForAdmin(page, searchText);
+        List<Map<String, Object>> bookMaps = new ArrayList<>(list.size());
+
+        for (Book book: list) {
+            Map<String, Object> map = book.toMap();
+            bookMaps.add(map);
+        }
+
+        res.put("pages", (int) Math.ceil((double) count / COUNT_PER_PAGE_ADMIN));
+        res.put("books", bookMaps);
+        return res;
     }
 
     public Map<String, Object> listForAnonymous(
@@ -103,7 +120,7 @@ public class BookService {
             bookMaps.add(map);
         }
 
-        res.put("pages", Math.ceil((double) count / COUNT_PER_PAGE_USER));
+        res.put("pages", (int) Math.ceil((double) count / COUNT_PER_PAGE_USER));
         res.put("books", bookMaps);
         return res;
     }
