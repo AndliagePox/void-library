@@ -21,7 +21,7 @@ public class OPLogService {
     /**
      * 管理员每页操作日志容量
      */
-    public static final int COUNT_PER_PAGE = 2;
+    public static final int COUNT_PER_PAGE = 10;
 
     private OPLogDAO opLogDAO;
 

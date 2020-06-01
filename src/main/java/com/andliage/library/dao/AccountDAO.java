@@ -6,6 +6,7 @@
 package com.andliage.library.dao;
 
 import com.andliage.library.entity.Admin;
+import com.andliage.library.entity.Hold;
 import com.andliage.library.entity.User;
 import com.andliage.library.service.UserService;
 import org.hibernate.Query;
@@ -66,6 +67,16 @@ public class AccountDAO extends BaseDAO {
 
     public void updateUser(User user) {
         template.update(user);
+        template.flush();
+    }
+
+    public void deleteUser(User user) {
+        String hql = "from Hold h where h.user = ?";
+        List<Hold> holds = (List<Hold>) template.find(hql, user);
+        for (Hold hold: holds) {
+            template.delete(hold);
+        }
+        template.delete(user);
         template.flush();
     }
 }

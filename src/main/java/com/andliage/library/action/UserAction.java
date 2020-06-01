@@ -53,6 +53,15 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
+    public String delete() {
+        HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
+        int userId = Integer.parseInt(request.getParameter("id"));
+        String adminName = (String) context.getSession().get("curAdmin");
+
+        jsonMap = service.delete(userId, adminName);
+        return SUCCESS;
+    }
+
     @Autowired
     public void setService(UserService service) {
         this.service = service;

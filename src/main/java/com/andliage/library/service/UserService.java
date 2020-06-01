@@ -99,6 +99,19 @@ public class UserService {
         return res;
     }
 
+    public Map<String, Object> delete(int userId, String adminName) {
+        User user = accountDAO.findUserById(userId);
+        Admin admin = accountDAO.findAdminByName(adminName);
+
+        String content = "进行了 <b>删除</b> 用户 <b>" + user.getUsername() + "</b> [" + userId + "] :";
+        saveNewOPLog(admin, content);
+        accountDAO.deleteUser(user);
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("code", 1);
+        return res;
+    }
+
     private void saveNewOPLog(Admin admin, String content) {
         OPLog log = new OPLog();
         log.setAdmin(admin);

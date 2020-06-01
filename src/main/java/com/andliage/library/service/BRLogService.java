@@ -23,7 +23,7 @@ public class BRLogService {
     /**
      * 管理员每页借还日志容量
      */
-    public static final int COUNT_PER_PAGE = 2;
+    public static final int COUNT_PER_PAGE = 10;
 
     private BRLogDAO brLogDAO;
 

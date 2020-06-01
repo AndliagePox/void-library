@@ -89,6 +89,14 @@
                 <param name="root">jsonMap</param>
             </result>
         </action>
+
+        <action name="delete" class="userAction" method="delete">
+            <interceptor-ref name="adminLoginStack"/>
+
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
     </package>
 
     <package name="brLogApi" namespace="/api/br_log" extends="base">
