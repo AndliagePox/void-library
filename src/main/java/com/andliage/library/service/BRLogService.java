@@ -40,7 +40,7 @@ public class BRLogService {
             String content = "用户 <b>" + user.getUsername() +
                     "</b> 进行了 <b>" + log.typeString() +
                     "</b> 书籍 <b>《" + book.getName() +
-                    "》</b>(Book Id:" + book.getId() + ")";
+                    "》</b> [" + book.getId() + "]";
             map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(log.getTime()));
             map.put("content", content);
             logMaps.add(map);

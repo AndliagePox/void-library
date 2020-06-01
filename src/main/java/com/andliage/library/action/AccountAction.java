@@ -6,8 +6,6 @@
 package com.andliage.library.action;
 
 import com.andliage.library.service.AccountService;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.StrutsStatics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -15,15 +13,11 @@ import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @Scope("prototype")
-public class AccountAction extends ActionSupport {
-    public Map<String, Object> jsonMap;
-
+public class AccountAction extends BaseAction {
     private AccountService service;
-    private final ActionContext context = ActionContext.getContext();
 
     public String login() {
         HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
