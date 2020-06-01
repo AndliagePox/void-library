@@ -199,7 +199,6 @@ public class BookService {
         book.setAuthor(author);
         book.setIntro(intro);
         book.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        bookDAO.saveBook(book);
 
         Admin admin = accountDAO.findAdminByName(adminName);
         String opLogContent = "进行了 <b>添加</b> 书籍 [" + bookDAO.nextId() + "] :" +
@@ -209,6 +208,7 @@ public class BookService {
                 "</b><br><b>库存</b>: <b>" + count +
                 "</b><br><b>简介</b>: <b>" + intro;
         saveNewOPLog(admin, opLogContent);
+        bookDAO.saveBook(book);
 
         res.put("code", 1);
         return res;
