@@ -34,6 +34,25 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
+    public String detail() {
+        HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
+        int userId = Integer.parseInt(request.getParameter("id"));
+
+        jsonMap = service.detail(userId);
+        return SUCCESS;
+    }
+
+    public String update() {
+        HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
+        int userId = Integer.parseInt(request.getParameter("id"));
+        int hold = Integer.parseInt(request.getParameter("hold"));
+        String pwd = request.getParameter("pwd");
+        String adminName = (String) context.getSession().get("curAdmin");
+
+        jsonMap = service.update(userId, hold, pwd, adminName);
+        return SUCCESS;
+    }
+
     @Autowired
     public void setService(UserService service) {
         this.service = service;

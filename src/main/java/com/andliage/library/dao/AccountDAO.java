@@ -41,6 +41,12 @@ public class AccountDAO extends BaseDAO {
         return count;
     }
 
+    public User findUserById(int id) {
+        String hql = "from User u where u.id= ?";
+        List<User> list = (List<User>) template.find(hql, id);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
     public User findUserByName(String username) {
         String hql = "from User u where u.username = ?";
         List<User> list = (List<User>) template.find(hql, username);
@@ -55,6 +61,11 @@ public class AccountDAO extends BaseDAO {
 
     public void saveUser(User user) {
         template.save(user);
+        template.flush();
+    }
+
+    public void updateUser(User user) {
+        template.update(user);
         template.flush();
     }
 }
