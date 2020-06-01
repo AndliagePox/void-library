@@ -1,14 +1,12 @@
 /*
  * Author: Andliage Pox
- * Date: 2020-05-31
+ * Date: 2020-06-01
  */
 
 package com.andliage.library.service;
 
-import com.andliage.library.dao.BRLogDAO;
-import com.andliage.library.entity.BRLog;
-import com.andliage.library.entity.Book;
-import com.andliage.library.entity.User;
+import com.andliage.library.dao.OPLogDAO;
+import com.andliage.library.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,28 +17,24 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class BRLogService {
+public class OPLogService {
     /**
-     * 管理员每页借还日志容量
+     * 管理员每页操作日志容量
      */
     public static final int COUNT_PER_PAGE = 2;
 
-    private BRLogDAO brLogDAO;
+    private OPLogDAO opLogDAO;
 
     public Map<String, Object> list(int page) {
         Map<String, Object> res = new HashMap<>();
-        long count = brLogDAO.getBRLogCount();
-        List<BRLog> list = brLogDAO.findBRLogs(page);
+        long count = opLogDAO.getOPLogCount();
+        List<OPLog> list = opLogDAO.findOPLogs(page);
         List<Map<String, Object>> logMaps = new ArrayList<>(list.size());
 
-        for (BRLog log: list) {
+        for (OPLog log: list) {
             Map<String, Object> map = new HashMap<>();
-            User user = log.getUser();
-            Book book = log.getBook();
-            String content = "用户 <b>" + user.getUsername() +
-                    "</b> 进行了 <b>" + log.typeString() +
-                    "</b> 书籍 <b>《" + book.getName() +
-                    "》</b> [" + book.getId() + "]";
+            Admin admin = log.getAdmin();
+            String content = "管理员 <b>" + admin.getUsername() + "</b> " + log.getContent();
             map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(log.getTime()));
             map.put("content", content);
             logMaps.add(map);
@@ -52,7 +46,7 @@ public class BRLogService {
     }
 
     @Autowired
-    public void setBrLogDAO(BRLogDAO brLogDAO) {
-        this.brLogDAO = brLogDAO;
+    public void setOpLogDAO(OPLogDAO opLogDAO) {
+        this.opLogDAO = opLogDAO;
     }
 }

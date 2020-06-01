@@ -6,9 +6,7 @@
 package com.andliage.library.dao;
 
 import com.andliage.library.entity.BRLog;
-import com.andliage.library.entity.User;
 import com.andliage.library.service.BRLogService;
-import com.andliage.library.service.UserService;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;

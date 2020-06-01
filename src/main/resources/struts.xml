@@ -85,6 +85,16 @@
         </action>
     </package>
 
+    <package name="opLogApi" namespace="/api/op_log" extends="base">
+        <action name="list" class="OPLogAction" method="list">
+            <interceptor-ref name="adminLoginStack"/>
+
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+    </package>
+
     <package name="adminApi" namespace="/api/admin" extends="base">
         <action name="cur" class="adminAction" method="cur">
             <result name="success" type="json">
