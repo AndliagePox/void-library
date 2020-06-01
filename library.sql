@@ -1,3 +1,9 @@
+drop database library;
+
+create database library;
+
+use library;
+
 create table admin
 (
     id       int AUTO_INCREMENT primary key,
@@ -21,7 +27,8 @@ create table book
     author varchar(64),
     intro  varchar(1024),
     count  int,
-    hot    int
+    hot    int,
+    create_time datetime
 ) ENGINE = InnoDB;
 
 create table hold
@@ -44,11 +51,11 @@ create table br_log
     foreign key (book) references book (id)
 ) ENGINE = InnoDB;
 
-create table admin_operate_log
+create table op_log
 (
     id      int AUTO_INCREMENT primary key,
     admin   int,
     time    datetime,
-    content varchar(256),
+    content varchar(2048),
     foreign key (admin) references admin (id)
 ) ENGINE = InnoDB;

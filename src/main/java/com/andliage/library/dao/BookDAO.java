@@ -23,6 +23,12 @@ public class BookDAO extends BaseDAO {
         return list.isEmpty() ? null : list.get(0);
     }
 
+    public Integer nextId() {
+        String hql = "select max(b.id) from Book b";
+        List<Integer> list = (List<Integer>) template.find(hql);
+        return list.get(0) + 1;
+    }
+
     public void updateBook(Book book) {
         template.update(book);
         template.flush();

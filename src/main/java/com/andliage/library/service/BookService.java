@@ -202,7 +202,7 @@ public class BookService {
         bookDAO.saveBook(book);
 
         Admin admin = accountDAO.findAdminByName(adminName);
-        String opLogContent = "进行了 <b>添加</b> 书籍 [" + book.getId() + "] :" +
+        String opLogContent = "进行了 <b>添加</b> 书籍 [" + bookDAO.nextId() + "] :" +
                 "<br><b>书名</b>: <b>" + name +
                 "</b><br><b>作者</b>: <b>" + author +
                 "</b><br><b>热度</b>: <b>" + hot +
