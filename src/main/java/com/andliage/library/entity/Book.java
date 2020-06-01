@@ -89,6 +89,7 @@ public class Book {
         map.put("name", name);
         map.put("author", author);
         map.put("intro", intro);
+        map.put("count", count);
         map.put("hot", hot);
         map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(createTime));
         return map;

@@ -7,7 +7,7 @@ package com.andliage.library.entity;
 
 import java.sql.Timestamp;
 
-public class AdminOperateLog {
+public class OPLog {
     private int id;
     private Timestamp time;
     private String content;
@@ -50,7 +50,7 @@ public class AdminOperateLog {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AdminOperateLog that = (AdminOperateLog) o;
+        OPLog that = (OPLog) o;
 
         if (id != that.id) return false;
         if (time != null ? !time.equals(that.time) : that.time != null) return false;

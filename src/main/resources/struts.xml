@@ -115,5 +115,29 @@
                 <param name="root">jsonMap</param>
             </result>
         </action>
+
+        <action name="detail" class="bookAction" method="detail">
+            <interceptor-ref name="adminLoginStack"/>
+
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
+        <action name="add" class="bookAction" method="add">
+            <interceptor-ref name="adminLoginStack"/>
+
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
+        <action name="update" class="bookAction" method="update">
+            <interceptor-ref name="adminLoginStack"/>
+
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
     </package>
 </struts>

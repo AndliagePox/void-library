@@ -54,6 +54,42 @@ public class BookAction extends BaseAction {
         return SUCCESS;
     }
 
+    public String detail() {
+        HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
+        int bookId = Integer.parseInt(request.getParameter("id"));
+
+        jsonMap = service.detail(bookId);
+        return SUCCESS;
+    }
+
+    public String add() {
+        HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
+
+        String name = request.getParameter("name");
+        String author = request.getParameter("author");
+        String intro = request.getParameter("intro");
+        int hot = Integer.parseInt(request.getParameter("hot"));
+        int count = Integer.parseInt(request.getParameter("count"));
+        String adminName = (String) context.getSession().get("curAdmin");
+
+        jsonMap = service.add(hot, count, name, author, intro, adminName);
+        return SUCCESS;
+    }
+
+    public String update() {
+        HttpServletRequest request = (HttpServletRequest) context.get(StrutsStatics.HTTP_REQUEST);
+        int bookId = Integer.parseInt(request.getParameter("id"));
+        int hot = Integer.parseInt(request.getParameter("hot"));
+        int count = Integer.parseInt(request.getParameter("count"));
+        String name = request.getParameter("name");
+        String author = request.getParameter("author");
+        String intro = request.getParameter("intro");
+        String adminName = (String) context.getSession().get("curAdmin");
+
+        jsonMap = service.update(bookId, hot, count, name, author, intro, adminName);
+        return SUCCESS;
+    }
+
     @Autowired
     public void setService(BookService service) {
         this.service = service;

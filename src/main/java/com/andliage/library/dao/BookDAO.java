@@ -23,6 +23,16 @@ public class BookDAO extends BaseDAO {
         return list.isEmpty() ? null : list.get(0);
     }
 
+    public void updateBook(Book book) {
+        template.update(book);
+        template.flush();
+    }
+
+    public void saveBook(Book book) {
+        template.save(book);
+        template.flush();
+    }
+
     public List<Book> findBooksForAnonymous(int page, int sortType, String searchText) {
         if (searchText == null) searchText = "";
         Session session = template.getSessionFactory().openSession();
