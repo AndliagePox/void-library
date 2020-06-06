@@ -45,7 +45,6 @@ public class BookService {
     public static final int BR_LOG_RETURN = 2; // 归还
 
     private BookDAO bookDAO;
-    private HoldDAO holdDAO;
     private BRLogDAO brLogDAO;
     private OPLogDAO opLogDAO;
     private AccountDAO accountDAO;
@@ -144,10 +143,9 @@ public class BookService {
             return res;
         }
 
-        Hold hold = new Hold();
-        hold.setUser(user);
-        hold.setBook(book);
-        holdDAO.saveHold(hold);
+        user.getHoldBooks().add(book);
+        book.getHoldUsers().add(user);
+        accountDAO.updateUser(user);
 
         saveNewBRLog(user, book, BR_LOG_BORROW);
 
@@ -172,7 +170,9 @@ public class BookService {
             return res;
         }
 
-        holdDAO.deleteHold(user, book);
+        user.getHoldBooks().remove(book);
+        book.getHoldUsers().remove(user);
+        accountDAO.updateUser(user);
         saveNewBRLog(user, book, BR_LOG_RETURN);
 
         res.put("code", 1);
@@ -285,11 +285,6 @@ public class BookService {
     @Autowired
     public void setBookDAO(BookDAO bookDAO) {
         this.bookDAO = bookDAO;
-    }
-
-    @Autowired
-    public void setHoldDAO(HoldDAO holdDAO) {
-        this.holdDAO = holdDAO;
     }
 
     @Autowired
