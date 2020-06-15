@@ -100,14 +100,22 @@ public class UserService {
     }
 
     public Map<String, Object> delete(int userId, String adminName) {
+        Map<String, Object> res = new HashMap<>();
+
         User user = accountDAO.findUserById(userId);
         Admin admin = accountDAO.findAdminByName(adminName);
 
+        try {
+            accountDAO.deleteUser(user);
+        } catch (Exception e) {
+            res.put("code", 0);
+            res.put("msg", "用户已进行过借还操作，不可删除");
+            return res;
+        }
+
         String content = "进行了 <b>删除</b> 用户 <b>" + user.getUsername() + "</b> [" + userId + "] :";
         saveNewOPLog(admin, content);
-        accountDAO.deleteUser(user);
 
-        Map<String, Object> res = new HashMap<>();
         res.put("code", 1);
         return res;
     }

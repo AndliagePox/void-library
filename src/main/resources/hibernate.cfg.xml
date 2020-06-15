@@ -42,7 +42,6 @@
     <mapping resource="hbm/OPLog.hbm.xml"/>
     <mapping resource="hbm/Book.hbm.xml"/>
     <mapping resource="hbm/BRLog.hbm.xml"/>
-    <mapping resource="hbm/Hold.hbm.xml"/>
     <mapping resource="hbm/User.hbm.xml"/>
 
   </session-factory>
